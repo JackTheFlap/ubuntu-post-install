@@ -609,6 +609,7 @@ echo '5. Sublime Text 3 (build 3059)?'
 echo '6. Spotify client'
 echo '7. Oh-My-Zsh'
 echo '8. Spf13-vim'
+echo '9. GVM & Go'
 echo 'r. Return'
 echo ''
 read -p 'Enter your choice: ' REPLY
@@ -742,7 +743,6 @@ case $REPLY in
     ;;
 # Oh-My-Zsh
 7)
-    # Add repository
     echo 'Installing Oh-My-Zsh'
     sudo apt-get install -y zsh
     wget --no-check-certificate http://install.ohmyz.sh -O - | sh
@@ -750,12 +750,20 @@ case $REPLY in
     ;;
 # spf13-vim
 8)
-    # Add repository
     echo 'Installing spf13-vim'
     sudo apt-get install -y curl gnome-vim
     sh <(curl https://j.mp/spf13-vim3 -L)
     thirdparty
     ;;
+# GVM & Go
+9)
+    sudo apt-get install -y curl git mercurial make binutils bison gcc build-essential
+    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+    gvm install go1
+    gvm use go1 [--default]
+    thirdparty
+    ;;
+
 # Return
 [Rr]*) 
     clear && main;;
