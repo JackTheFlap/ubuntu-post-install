@@ -65,18 +65,12 @@ echo ''
 echo 'Installing selected favourite applications...'
 echo ''
 echo 'Current package list:
-cheese
-darktable
-easytag
 gnome-tweak-tool
 gpick
-grsync
 nautilus-dropbox
 nautilus-open-terminal
-pyrenamer
-sparkleshare
-xchat
-vlc'
+chromium-browser
+'
 echo ''
 read -p 'Proceed? (Y)es, (N)o : ' REPLY
 case $REPLY in
@@ -84,7 +78,7 @@ case $REPLY in
 [Yy]* ) 
     echo 'Requires root privileges:'
     # Feel free to change to whatever suits your preferences.
-    sudo apt-get install -y --no-install-recommends cheese darktable easytag gnome-tweak-tool gpick grsync nautilus-dropbox nautilus-open-terminal pyrenamer sparkleshare xchat vlc
+    sudo apt-get install -y --no-install-recommends gnome-tweak-tool gpick nautilus-dropbox nautilus-open-terminal chromium-browser
     echo 'Done.'
     main
     ;;
@@ -104,7 +98,6 @@ esac
 function system {
 echo ''
 echo '1. Install favourite system utilities?'
-echo '2. Install fingerprint reader software?'
 echo 'r. Return.'
 echo ''
 read -p 'What would you like to do? (Enter your choice) : ' REPLY
@@ -116,17 +109,12 @@ case $REPLY in
     echo 'Current package list:
     aptitude
     dconf-tools
-    openjdk-7-jdk
     openssh-server
     p7zip-full
     ppa-purge
-    python-soappy
-    samba
     ssh
-    supybot
     symlinks
     synaptic
-    virt-manager
     zsync'
     echo ''
     read -p 'Proceed? (Y)es, (N)o : ' REPLY
@@ -135,7 +123,7 @@ case $REPLY in
     [Yy]* )
         echo 'Requires root privileges:'
         # Feel free to change to whatever suits your preferences.
-        sudo apt-get install -y --no-install-recommends aptitude dconf-tools openjdk-7-jdk openssh-server p7zip-full ppa-purge python-soappy samba ssh supybot symlinks synaptic virt-manager zsync
+        sudo apt-get install -y --no-install-recommends aptitude dconf-tools openssh-server p7zip-full ppa-purge ssh synaptic zsync
         echo 'Done.'
         clear && system
         ;;
@@ -149,21 +137,6 @@ case $REPLY in
         system
         ;;
     esac
-    ;;
-# Install Fingerprint Reader Software
-2)
-    # Add repository
-    echo 'Adding Fingerprint Reader Team PPA to software sources...'
-    echo 'Requires root privileges:'
-    sudo apt-add-repository -y ppa:fingerprint/fingerprint-gui
-    # Update repository information
-    echo 'Updating repository information...'
-    sudo apt-get update
-    # Install package(s)
-    echo 'Installing fingerprint reader software...'
-    sudo apt-get install -y libbsapi policykit-1-fingerprint-gui fingerprint-gui
-    echo 'Done.'
-    system
     ;;
 # Return
 [Rr]*) 
@@ -361,12 +334,17 @@ case $REPLY in
     bzr
     devscripts 
     git
-    glade
     gnome-common
-    gtk-3-examples
-    nodejs
-    python-launchpadlib
-    python3-distutils-extra'
+    vim-gnome 
+    curl
+    zsh
+    mercurial
+    make
+    binutils
+    bison
+    gcc
+    build-essentials
+    nodejs'
     echo ''
     read -p 'Proceed? (Y)es, (N)o : ' REPLY
     case $REPLY in
@@ -374,7 +352,7 @@ case $REPLY in
     [Yy]* ) 
         echo 'Requires root privileges:'
         # Feel free to change to whatever suits your preferences.
-        sudo apt-get install -y bzr devscripts gcc-snapshot git glade gnome-common gtk-3-examples lib32stdc++6 nodejs python-launchpadlib python3-distutils-extra
+        sudo apt-get install -y bzr devscripts gcc-snapshot git lib32stdc++6 vim-gnome git curl zsh mercurial make binutils bison gcc build-essentials nodejs
         echo 'Done.'
         development
         ;;
@@ -629,6 +607,8 @@ echo '3. Google Music Manager?'
 echo '4. Steam?'
 echo '5. Sublime Text 3 (build 3059)?'
 echo '6. Spotify client'
+echo '7. Oh-My-Zsh'
+echo '8. Spf13-vim'
 echo 'r. Return'
 echo ''
 read -p 'Enter your choice: ' REPLY
@@ -758,6 +738,22 @@ case $REPLY in
     echo 'Installing Spotify client...'
     sudo apt-get install -y spotify-client
     echo 'Done.'
+    thirdparty
+    ;;
+# Oh-My-Zsh
+7)
+    # Add repository
+    echo 'Installing Oh-My-Zsh'
+    sudo apt-get install -y zsh
+    wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+    thirdparty
+    ;;
+# spf13-vim
+8)
+    # Add repository
+    echo 'Installing spf13-vim'
+    sudo apt-get install -y curl gnome-vim
+    sh <(curl https://j.mp/spf13-vim3 -L)
     thirdparty
     ;;
 # Return
